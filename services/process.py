@@ -30,8 +30,9 @@ async def process_image(db: SessionDep, media: UploadFile, user: schemas.User):
 
 #process video media   
 async def process_video(db: SessionDep, media: UploadFile, user: schemas.User):
-    # hashed_value = await analyze.analyze_video_face_recognition(media)
-    hashed_value="24d52db5740495ee7ea0ab117a053b7f9fb887664d66c746183810eea94a6b2b"
+    hashed_value = await analyze.analyze_video_face_recognition(media)
+    # # # print(hashed_value)
+    # hashed_value="24d52db5740495ee7ea0ab117a053b7f9fb887664d66c746183810eea94a6b2b"
     metadata = await VideoMetadata.get_metadata(media)
     await check_video_metadata(db, metadata, user, hashed_value)
     embeded_watermark = await watermark.extract_watermark(media)
